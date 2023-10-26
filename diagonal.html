@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <style>
+            #container {
+                width: 200px;
+                height: 200px;
+                background: rgb(13, 13, 210);
+                position: relative;
+            }
+            #box {
+                width: 50px;
+                height: 50px;
+                background: rgb(243, 83, 3);
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="box"></div>
+        </div>
+
+        <script>
+            window.onload = function() {
+                var pos_x = 0;
+                var pos_y = 0;
+                var direction_x = 1; // 1 represents right, -1 represents left
+                var direction_y = 1; // 1 represents down, -1 represents up
+                var boxWidth = 50; // Width of the smaller square
+                var containerWidth = 200; // Width of the larger square
+
+                // Our box element
+                var box = document.getElementById('box');
+                var t = setInterval(move, 10);
+
+                function move() {
+                    // Calculate the new position
+                    var new_x = pos_x + direction_x;
+                    var new_y = pos_y + direction_y;
+
+                    // Check if the new position is within bounds
+                    if (new_x >= 0 && new_x + boxWidth <= containerWidth) {
+                        pos_x = new_x;
+                    } else {
+                        direction_x *= -1; // Reverse direction on collision
+                    }
+
+                    if (new_y >= 0 && new_y + boxWidth <= containerWidth) {
+                        pos_y = new_y;
+                    } else {
+                        direction_y *= -1; // Reverse direction on collision
+                    }
+
+                    // Update the square's position
+                    box.style.left = pos_x + 'px';
+                    box.style.top = pos_y + 'px';
+                }
+            };
+        </script>
+    </body>
+</html>
